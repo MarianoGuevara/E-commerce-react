@@ -1,0 +1,29 @@
+.navbar {
+	background-color: #309a6c !important;
+	/* color: white !important; */
+}
+.mobileDropdown {
+	color: white;
+}
+
+.logo {
+	width: 50px;
+}
+
+.carro {
+	width: 25px;
+	/* margin-left: 25px; */
+}
+
+.navbar-nav {
+	margin: 0 !important;
+}
+
+.barraBusqueda{ 
+	margin-right: 15px;
+	width: 55%;
+}
+
+.nav-link {
+	color: white !important;
+}

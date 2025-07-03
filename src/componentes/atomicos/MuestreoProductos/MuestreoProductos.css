@@ -1,0 +1,11 @@
+.listaproductos {
+	overflow: auto;
+	padding: 0;
+	margin: 0;
+}
+
+.contenedor{
+	padding: 10px;
+	margin: 10px;
+	background-color: rgb(230, 230, 230);
+}

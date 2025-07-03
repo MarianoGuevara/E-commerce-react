@@ -1,0 +1,31 @@
+.card-producto {
+	width: 150px;
+	height: 200px;
+	background-color: white;
+}
+
+.card-producto:hover {
+	border: 1px solid #000;
+	cursor: pointer;
+}
+
+.card-producto:hover .nombre-producto {
+	color: #309a6c;
+}
+
+.card-img-top {
+	width: 80px;
+	height: 80px;
+	object-fit: contain;
+}
+
+.nombre-producto {
+	font-size: 14px;
+	width: 100%;
+}
+
+.precio-producto {
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0;
+}
