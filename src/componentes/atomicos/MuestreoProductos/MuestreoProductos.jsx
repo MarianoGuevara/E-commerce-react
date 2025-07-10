@@ -12,9 +12,12 @@ export function MuestreoProductos({arrayProductos, categoria}) {
 				<ul className="list-unstyled d-flex gap-2 listaproductos mb-3">
 					{
 						arrayProductos.map((value,i)=>{
-							return <li key={i}>
-								<ItemListContainer srcImg={value.image} nombre={value.title} precio={value.price}></ItemListContainer>	
-							</li>
+							if (categoria == "Todos" || categoria == arrayProductos[i]["category"]){
+								return <li key={i}>
+									<ItemListContainer srcImg={value.image} nombre={value.title} precio={value.price}></ItemListContainer>	
+								</li>
+							}
+							
 						})
 					}
 				</ul>

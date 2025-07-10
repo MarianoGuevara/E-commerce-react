@@ -1,31 +1,28 @@
 import './NavBar.css';
 import { CartWidget } from "../../atomicos/CartWidget/CartWidget";
+import { NavLink } from 'react-router-dom';
 
-export function NavBar(arrayProductos) {
+export function NavBar({arrayCategorias}) {
 	return (
 			<nav className="navbar navbar-expand-lg bg-body-tertiary">
 				<div className="container d-flex justify-content-center gap-2">
-					<img href="#" src="././public/logo.png" className="logo me-3"></img>
+					<NavLink to="/"><img src="././public/logo.png" className="logo me-3"></img></NavLink>
+					
 					
 					<div className="d-flex " id="navbarSupportedContent">
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex alig">
-							{/* <li className="nav-item">
-								<a className="nav-link active" aria-current="page" href="#">Link 1</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="#">Link 2</a>
-							</li> */}
 							<li className="nav-item dropdown">
 								<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Categorias
 								</a>
 								<ul className="dropdown-menu">
 									{
-										
+										arrayCategorias.map((valor,i) => {
+											return (
+												<li key={i}><a className="dropdown-item" href="#">{valor}</a></li>
+											)
+										})
 									}
-									<li><a className="dropdown-item" href="#">Muebles</a></li>
-									<li><a className="dropdown-item" href="#">Ropa</a></li>
-									<li><a className="dropdown-item" href="#">Futbol</a></li>
 								</ul>
 							</li>
 							
@@ -41,4 +38,3 @@ export function NavBar(arrayProductos) {
 			</nav>
 	)
 }
-
