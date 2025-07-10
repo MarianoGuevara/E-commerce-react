@@ -27,3 +27,8 @@
 .nav-link {
 	color: white !important;
 }
+
+a {
+	text-decoration: none;
+	color: inherit;
+}

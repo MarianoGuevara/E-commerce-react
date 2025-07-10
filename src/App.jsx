@@ -3,9 +3,9 @@ import { NavBar } from './componentes/estructurales/NavBar/NavBar'
 import { Footer } from './componentes/estructurales/Footer/Footer'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { MuestreoProductos } from './componentes/atomicos/MuestreoProductos/MuestreoProductos'
-import { Carrousel } from './componentes/atomicos/Carrousel/Carrousel'
+import { Home } from './componentes/estructurales/Home/Home'
 import { Routes, Route } from 'react-router-dom'
+import { MuestreoProductos } from './componentes/atomicos/MuestreoProductos/MuestreoProductos'
 
 function App() {
 	const [arrayProductos, setArrayProductos] = useState([]);
@@ -64,19 +64,12 @@ function App() {
 		
 			{/* flex-fill -> empuja el footer abajo */}
 			<main className="flex-fill">
-				<Carrousel img1={"./public/carrousel3.jpg"} img2={"./public/carrousel1.jpg"} img3={"./public/carrousel2.jpg"}></Carrousel>
+				
+				<Routes>
+					<Route path='/' element={<Home arrayProductos={arrayProductos}></Home>}></Route>
+					<Route path='/categorias/:any' element={<MuestreoProductos arrayProductos={arrayProductos}/>}></Route>
 
-				<MuestreoProductos arrayProductos={arrayProductos} categoria={"Todos"}/>
-				<br></br>
-				<MuestreoProductos arrayProductos={arrayProductos} categoria={"electronics"}/>
-				<br></br>
-				<MuestreoProductos arrayProductos={arrayProductos} categoria={"jewelery"}/>
-
-				<br></br>
-
-				{/* <Routes>
-					<Route path='/' element={<p>puto</p>}></Route>
-				</Routes> */}
+				</Routes>
 				
 			</main>
 			

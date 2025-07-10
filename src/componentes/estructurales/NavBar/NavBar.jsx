@@ -6,8 +6,8 @@ export function NavBar({arrayCategorias}) {
 	return (
 			<nav className="navbar navbar-expand-lg bg-body-tertiary">
 				<div className="container d-flex justify-content-center gap-2">
-					<NavLink to="/"><img src="././public/logo.png" className="logo me-3"></img></NavLink>
-					
+
+					<NavLink to="/"><img src="/logo.png" className="logo me-3"></img></NavLink>
 					
 					<div className="d-flex " id="navbarSupportedContent">
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex alig">
@@ -19,7 +19,9 @@ export function NavBar({arrayCategorias}) {
 									{
 										arrayCategorias.map((valor,i) => {
 											return (
-												<li key={i}><a className="dropdown-item" href="#">{valor}</a></li>
+												<NavLink key={i} to={`/categorias/${valor}`}>	
+													<li><p className="dropdown-item" >{valor}</p></li>
+												</NavLink>
 											)
 										})
 									}
@@ -33,7 +35,9 @@ export function NavBar({arrayCategorias}) {
 						<input className="form-control me-2" type="search" placeholder="Search" aria-label="Buscar producto"/>
 						<button className="btn btn-outline-light" type="submit">Buscar</button>
 					</form>
-					<CartWidget srcImg="././public/carro.png"></CartWidget>
+
+					{/* / -> le dice al navegador "busca desde el root del proyecto" */}
+					<CartWidget srcImg="/carro.png"></CartWidget>
 				</div>
 			</nav>
 	)
