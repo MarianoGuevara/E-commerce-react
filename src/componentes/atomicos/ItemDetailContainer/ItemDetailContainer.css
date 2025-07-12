@@ -1,0 +1,25 @@
+.detalle-container {
+	background-color: #f1f1f1; /* gris clarito */
+}
+
+.detalle-img {
+	width: 80%;
+	border-radius: 8px;
+	object-fit: contain;
+}
+
+.detalle-titulo {
+	font-size: 1.8rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.detalle-precio {
+	color: #309a6c; 
+	font-size: 1.6rem;
+}
+
+.detalle-descripcion {
+	color: #555;
+	margin-top: 0.5rem;
+}

@@ -1,11 +1,11 @@
 import './App.css'
 import { NavBar } from './componentes/estructurales/NavBar/NavBar'
 import { Footer } from './componentes/estructurales/Footer/Footer'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Home } from './componentes/estructurales/Home/Home'
 import { Routes, Route } from 'react-router-dom'
 import { MuestreoProductos } from './componentes/atomicos/MuestreoProductos/MuestreoProductos'
+import { ItemDetailContainer } from './componentes/atomicos/ItemDetailContainer/ItemDetailContainer'
 
 function App() {
 	const [arrayProductos, setArrayProductos] = useState([]);
@@ -17,14 +17,9 @@ function App() {
 			.then(data => {
 				setArrayProductos(data);
 
-				// crearYSetearArray(data, "category").then(retorno => {
-				// 	categorias = retorno;
-				// })
 				let categoriasArray = filtadoPorKey(data, "category");
 				categoriasArray = setOfArray(categoriasArray);
-				setArrayCategorias(categoriasArray);
-
-				
+				setArrayCategorias(categoriasArray);				
 			});
 	}, []);
 
@@ -68,7 +63,8 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Home arrayProductos={arrayProductos}></Home>}></Route>
 					<Route path='/categorias/:any' element={<MuestreoProductos arrayProductos={arrayProductos}/>}></Route>
-
+					<Route path='/detalle/:any' element={<ItemDetailContainer></ItemDetailContainer>}></Route>
+					<Route path='*'  element={<p>Error 404</p>}></Route>
 				</Routes>
 				
 			</main>

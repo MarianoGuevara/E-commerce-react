@@ -17,15 +17,15 @@ export function MuestreoProductos({arrayProductos, categoria}) {
 					{
 						arrayProductos.map((value,i)=>{
 							if (categoria == arrayProductos[i]["category"] || categoria == "Todos"){
-								return <li key={i}>
-									<ItemListContainer srcImg={value.image} nombre={value.title} precio={value.price}></ItemListContainer>	
-								</li>
+								return (
+									<li key={i}>
+										<ItemListContainer srcImg={value.image} nombre={value.title} precio={value.price} id={value.id}></ItemListContainer>	
+									</li>
+								)
 							}
-							
 						})
 					}
 				</ul>
 			</div>
-			
 	)
 }
