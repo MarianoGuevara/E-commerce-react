@@ -7,14 +7,14 @@ export function ItemDetailContainer() {
 	const [producto, setProducto] = useState({});
 
 	useEffect(() => {
-		fetch('https://fakestoreapi.com/products/'+param["any"])
+		fetch('https://fakestoreapi.com/products/'+ param["any"])
 			.then(response => response.json())
 			.then(data => {
 				
 				setProducto(data);
 			});
 	}, []);
-	console.log(producto);
+
 	return (
 		<div className="container my-5 card p-4 detalle-container">
 			<div className="row">

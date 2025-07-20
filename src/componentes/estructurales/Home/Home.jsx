@@ -1,17 +1,17 @@
 import './Home.css';
 import { Carrousel } from '../../atomicos/Carrousel/Carrousel';
-import { MuestreoProductos } from '../../atomicos/MuestreoProductos/MuestreoProductos';
+import { PedidoProductos } from '../../atomicos/PedidoProductos/PedidoProductos';
 
-export function Home({arrayProductos}) {
+export function Home() {
 	return (
 		<>
 			<Carrousel img1={"/carrousel3.jpg"} img2={"/carrousel1.jpg"} img3={"/carrousel2.jpg"}></Carrousel>
 
-			<MuestreoProductos arrayProductos={arrayProductos} categoria={"Todos"}/>
+			<PedidoProductos categoria={"todos"}/>
 			<br></br>
-			<MuestreoProductos arrayProductos={arrayProductos} categoria={"electronics"}/>
+			<PedidoProductos categoria={"electronics"}/>
 			<br></br>
-			<MuestreoProductos arrayProductos={arrayProductos} categoria={"jewelery"}/>
+			<PedidoProductos categoria={"jewelery"}/>
 
 			<br></br>
 		</>

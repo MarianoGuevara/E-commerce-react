@@ -1,8 +1,19 @@
 import './NavBar.css';
 import { CartWidget } from "../../atomicos/CartWidget/CartWidget";
 import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-export function NavBar({arrayCategorias}) {
+export function NavBar() {
+	const [categorias, setCategorias] = useState([]);
+
+	useEffect(() => {
+		fetch("https://fakestoreapi.com/products/categories")
+			.then(response => response.json())
+			.then(data => {
+				setCategorias(data);
+			});
+	}, []);
+
 	return (
 			<nav className="navbar navbar-expand-lg bg-body-tertiary">
 				<div className="container d-flex justify-content-center gap-2">
@@ -17,7 +28,7 @@ export function NavBar({arrayCategorias}) {
 								</a>
 								<ul className="dropdown-menu">
 									{
-										arrayCategorias.map((valor,i) => {
+										categorias.map((valor,i) => {
 											return (
 												<NavLink key={i} to={`/categorias/${valor}`}>	
 													<li><p className="dropdown-item" >{valor}</p></li>
