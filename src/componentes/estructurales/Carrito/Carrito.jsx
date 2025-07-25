@@ -4,7 +4,9 @@ import { useContext } from 'react'
 
 export function Carrito({}) {
 	const contextoCarro = useContext(ContextoCart);
-	const copiaCarrito = JSON.parse(JSON.stringify(contextoCarro.productosCarro));
+	const copiaCarrito = JSON.parse(JSON.stringify(contextoCarro.productosDelCarro));
+	console.log(copiaCarrito);
+	
 	return (
 		<>
 		{

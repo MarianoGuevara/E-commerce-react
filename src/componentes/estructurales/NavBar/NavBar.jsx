@@ -2,17 +2,23 @@ import './NavBar.css';
 import { CartWidget } from "../../atomicos/CartWidget/CartWidget";
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { obtenerKeyCasteada } from '../../../firebase';
+import { AlertaBasica } from '../../../Alert';
 
 export function NavBar() {
 	const [categorias, setCategorias] = useState([]);
 
 	useEffect(() => {
-		fetch("https://fakestoreapi.com/products/categories")
-			.then(response => response.json())
-			.then(data => {
-				setCategorias(data);
-			});
+		obtenerKeyCasteada("productos", "category")
+		.then(data => {
+			setCategorias(data);
+		});
 	}, []);
+
+	function Alerta(e){
+		e.preventDefault(); // evita el refresh del formulario
+		AlertaBasica("Operación no desarrollada!","La barra de busqueda aún no es funcional, disculpa las molestias","warning","ok");
+	}
 
 	return (
 			<nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -44,7 +50,7 @@ export function NavBar() {
 					</div>
 					<form className="d-flex barraBusqueda" role="search">
 						<input className="form-control me-2" type="search" placeholder="Search" aria-label="Buscar producto"/>
-						<button className="btn btn-outline-light" type="submit">Buscar</button>
+						<button onClick={Alerta} className="btn btn-outline-light" type="submit">Buscar</button>
 					</form>
 
 					{/* / -> le dice al navegador "busca desde el root del proyecto" */}

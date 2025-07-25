@@ -1,0 +1,13 @@
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySweetAlert = withReactContent(Swal)
+
+export function AlertaBasica(titulo, texto, icono, btn){
+	MySweetAlert.fire({
+	title: titulo,
+	text: texto,
+	icon: icono,
+	confirmButtonText: btn
+	})
+}

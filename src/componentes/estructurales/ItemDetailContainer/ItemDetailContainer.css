@@ -23,3 +23,25 @@
 	color: #555;
 	margin-top: 0.5rem;
 }
+
+.detalle-stock {
+	color: #555;
+	font-weight: bold;
+}
+
+.masmenos {
+	width: 40px;
+}
+.masmenos:hover {
+	background-color: rgb(13, 14, 13);
+	cursor: pointer;
+}
+
+.cont {
+	margin-bottom: 2rem;
+}
+
+.txtCant {
+	margin: 0;
+	margin-right: .5rem;
+}
