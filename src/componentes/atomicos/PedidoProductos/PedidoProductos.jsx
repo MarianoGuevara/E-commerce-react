@@ -1,6 +1,7 @@
 import { MuestreoProductos } from "../MuestreoProductos/MuestreoProductos";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { obtenerTodosCasteada, obtenerWhereCasteada } from "../../../firebase";
 
 export function PedidoProductos({ categoria: propCategoria }) {
 	const paramCategoria  = useParams(); 
@@ -10,18 +11,23 @@ export function PedidoProductos({ categoria: propCategoria }) {
 	const [categoriaActual, setCategoriaActual] = useState("");
 
 	useEffect(() => {
-		let url = "https://fakestoreapi.com/products";
-		if (categoria !== "todos") {
-			url += "/category/" + categoria;
-		}
-
-		fetch(url)
-			.then(response => response.json())
-			.then(data => {
-				setProductos(data);
+		if (categoria == "todos") {
+			obtenerTodosCasteada("productos")
+			.then(r => {
+				console.log("ACA");
+				setProductos(r);
 				setCategoriaActual(categoria);
-			});
-	}, [categoria]); 
+			})
+		} else {
+			obtenerWhereCasteada("productos", "category", categoria)
+			.then(r => {
+				console.log("ACA");
+				setProductos(r);
+				setCategoriaActual(categoria);
+			})
+		}
+		
+	}); 
 
 	return <MuestreoProductos arrayProductos={productos} categoria={categoriaActual}></MuestreoProductos>;
 }
