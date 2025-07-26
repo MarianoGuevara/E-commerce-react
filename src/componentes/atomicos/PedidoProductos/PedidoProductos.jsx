@@ -17,21 +17,22 @@ export function PedidoProductos({ categoria: propCategoria }) {
 		if (categoria == "todos") {
 			obtenerTodosCasteada("productos")
 			.then(r => {
-				console.log("ACA");
-				setProductos(r);
-				setCategoriaActual(categoria);
-				setLoading(false);
+				setteo(r,categoria,false);
 			})
 		} else {
 			obtenerWhereCasteada("productos", "category", categoria)
 			.then(r => {
-				setProductos(r);
-				setCategoriaActual(categoria);
-				setLoading(false);
+				setteo(r,categoria,false);
 			})
 		}
 		
 	}, [categoria]); // array de dependencia. Solo se ejecuta si cambia algun item del array
+
+	function setteo(r,categoria,bool) {
+		setProductos(r);
+		setCategoriaActual(categoria);
+		setLoading(bool);
+	}
 
 	return (
 		<>

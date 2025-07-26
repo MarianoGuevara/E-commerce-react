@@ -1,40 +1,50 @@
 import "./FormSesion.css";
 import { AlertaBasica } from "../../../utilities/Alert";
-import {estaLogueado, crearUsuario} from '../../../utilities/Auth'
+import { ContextoAuth } from "../../../providers/AuthProvider";
 import { NavLink } from "react-router-dom";
 import { Spinner } from "../../atomicos/Spinner/Spinner";
-import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom"
 
 export function FormSesion({ accion }) {
-	const [loading, setLoading] = useState(false);
+	const contextoAuth = useContext(ContextoAuth);
 
-	async function iniciarSesion(e) {
-		const a = await estaLogueado();
+	const navigate = useNavigate();
+
+	async function loguarse(email, pass) {
+		const a = await contextoAuth.iniciarSesion(email, pass);
+		if (a != null) {
+			AlertaBasica("Sesión iniciada correctamente!", `Bienvenido, ${email}`, 'success', "Ok")
+			.then(() => { navigate("/"); })
+		} else {
+			AlertaBasica("No se ha podido iniciar sesión", `Revise las credenciales`, 'error', "Ok")
+		}
 	}
 
 	async function registrarse(email, pass) {
-		console.log(email);
-		console.log(pass);
-		const res = await crearUsuario(email, pass)
-		console.log(res);
+		const res = await contextoAuth.crearUsuario(email, pass)
+		if (res != null) {
+			AlertaBasica("Usuario creado correctamente!", `El usuario con el mail:  ${email} para loguearte ve a iniciar sesión`, 'success', "Ok")
+			.then(() => { contextoAuth.cerrarSesion().then(() => { navigate("/"); }) })
+		} else {
+			AlertaBasica("No se ha podido crear el usuario!", `El usuario con el mail:  ${email}`, 'error', "Ok")
+		}
 	}
 
 	async function botonComplete() {
-		setLoading(true);
 		const email = document.getElementById("email");
 		const password = document.getElementById("password");
 
 		if (accion == "login") { 
-			await iniciarSesion(email.value, password.value);
+			await loguarse(email.value, password.value);
 		} else {
 			await registrarse(email.value, password.value);
 		}
-		setLoading(false);
 	}
 
 	return (
 		<>	
-			{loading ? <Spinner></Spinner> : null}
+			{contextoAuth.loading ? <Spinner></Spinner> : null}
 			<div className="login-contenedor m-3 d-flex align-items-center justify-content-center">
 				<div className="login-form p-4 m-5 rounded">
 
@@ -69,6 +79,5 @@ export function FormSesion({ accion }) {
 				</div>
 			</div>
 		</>
-		
 	);
 }

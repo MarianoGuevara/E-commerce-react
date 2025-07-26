@@ -1,48 +1,58 @@
 import "./ItemDetailContainer.css";
 import { useParams, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ContextoCart } from "../../../providers/CartProvider";
-import { useContext } from 'react'
 import { obtenerWhereCasteada } from "../../../utilities/firebase";
 import { Spinner } from "../../atomicos/Spinner/Spinner";
-import { AlertaBasica } from "../../../utilities/Alert";
 import { ItemCount } from "../../atomicos/ItemCount/ItemCount";
+import { ContextoAuth } from "../../../providers/AuthProvider";
+import { AlertaBasica } from "../../../utilities/Alert";
 
 export function ItemDetailContainer() {
 	let param = useParams();
-
+	
 	const [producto, setProducto] = useState({});
-	const [loading, setLoading] = useState(true);
 	const [cantidad, setCantidad] = useState(1);
 
 	const contextoCarro = useContext(ContextoCart);
+	const contextoAuth = useContext(ContextoAuth);
 	
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		setLoading(true);
+		contextoAuth.setLoading(true);
 		obtenerWhereCasteada("productos", "id", parseInt(param["any"]))
 		.then(data => {
 			setProducto(data[0]);
-			setLoading(false);
+			contextoAuth.setLoading(false);
 		});
 	}, []);
 
 	function AgregarAlCarrito() {
-		if (cantidad > producto.stock) {
-			AlertaBasica("Supera el stock disponible!", "La cantidad actual que desea encargar del producto excede el stock", "warning", "ok")
-		} else {
-			// QUITAR STOCK DE LA BBDD
-			
-			contextoCarro.add(producto, cantidad);
+		if (contextoAuth.usuarioActual == null) {AlertaBasica("Debes iniciar sesión antes", "Antes de agregar algo al carrito debes iniciar sesión", "error", "Ok");}
+		else {
+			if (cantidad > producto.stock) {
+				AlertaBasica("Supera el stock disponible!", "La cantidad actual que desea encargar del producto excede el stock", "warning", "ok")
+			} else {
+				// QUITAR STOCK DE LA BBDD
+				
+				contextoCarro.add(producto, cantidad);
+				navigate("/");
+			}
+		}
+		
+	}
 
-			navigate("/");
+	function Comprar() {
+		if (contextoAuth.usuarioActual == null) {AlertaBasica("Debes iniciar sesión antes", "Antes de comprar algo debes iniciar sesión", "error", "Ok");}
+		else {
+			console.log("correcto...");
 		}
 	}
 
 	return (
 		<>
-			{loading ? <Spinner></Spinner> : null}
+			{contextoAuth.loading ? <Spinner></Spinner> : null}
 
 			<div className="container my-5 card p-4 detalle-container">
 				<div className="row">
@@ -62,7 +72,7 @@ export function ItemDetailContainer() {
 							
 							<div className="d-flex gap-3">
 								<button onClick={AgregarAlCarrito} className="btn btn-outline-success">Agregar al carrito</button>
-								<button className="btn btn-success">Comprar</button>
+								<button onClick={Comprar} className="btn btn-success">Comprar</button>
 							</div>
 						</div>
 					</div>
