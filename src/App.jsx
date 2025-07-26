@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom'
 import { ItemDetailContainer } from './componentes/estructurales/ItemDetailContainer/ItemDetailContainer'
 import { PedidoProductos } from './componentes/atomicos/PedidoProductos/PedidoProductos'
 import { Carrito } from './componentes/estructurales/Carrito/Carrito'
+import { FormSesion } from './componentes/estructurales/FormSesion/FormSesion'
 
 function App() {
 	return (
@@ -20,13 +21,14 @@ function App() {
 					<Route path='/categorias/:any' element={<PedidoProductos></PedidoProductos>}></Route>
 					<Route path='/detalle/:any' element={<ItemDetailContainer></ItemDetailContainer>}></Route>
 					<Route path='/carrito'  element={<Carrito></Carrito>}></Route>
+					<Route path='/login'  element={<FormSesion accion="login"></FormSesion>}></Route>
+					<Route path='/registro'  element={<FormSesion accion="registro"></FormSesion>}></Route>
+					
 					<Route path='*'  element={<p>Error 404</p>}></Route>
 					
 				</Routes>
 				
 			</main>
-			
-			<br></br>
 			 
 			<Footer></Footer>
 		</div>

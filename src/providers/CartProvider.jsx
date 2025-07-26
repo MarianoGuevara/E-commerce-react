@@ -8,17 +8,14 @@ export function CartProvider({children}) { // children será app
 	const [productosCarro, setProductosCarro] = useState([]);
 
 	const elValorDelCarrito = {
-        cantidad: cantidad,
+        cantidad: cantidad, // cantidad total de productos
 		setCantidad: setCantidad,
 
-		// productosCarro -> [{},{}...] cada {} == {id: 1, cantidad: 5, precio: 24}
+		// productosDelCarro -> [{},{}...] cada {} == {id: 1, cantidad: 5, precio: 24}
 		productosDelCarro : productosCarro,
-		// setProductosCarro : setProductosCarro,
 
-		add : AgregarCarrito,
+		add : AgregarCarrito, // agregar productos y cantidad del mismo
 	}
-
-
 
 	//#region logica
 
@@ -46,15 +43,9 @@ export function CartProvider({children}) { // children será app
 
 		setProductosCarro(nuevoCarrito)
 		setCantidad(elValorDelCarrito.cantidad + cantidadAgregada);
-
-		// contextoCarro.setProductosCarro(nuevoCarrito);
-		// contextoCarro.setCantidad(contextoCarro.cantidad + 1);
 	}
 
 	//#endregion
-
-
-
 
 	return (
 		<ProviderCart value={elValorDelCarrito}>

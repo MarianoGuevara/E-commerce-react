@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs, doc, setDoc, addDoc, query, where } from "firebase/firestore"; 
-import { Spinner } from "./componentes/atomicos/Spinner/Spinner";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCFgwpK0D6Ct6MIaJVwQJsBCn5cosNnBs4",
@@ -12,8 +11,8 @@ const firebaseConfig = {
   appId: "1:666100342038:web:ceae66fa85513b4bb94437"
 };
 
-const app = initializeApp(firebaseConfig);
-const bd = getFirestore(app);
+export const appInit = initializeApp(firebaseConfig);
+const bd = getFirestore(appInit);
 
 
 //#region genericas

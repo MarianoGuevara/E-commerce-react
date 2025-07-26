@@ -1,7 +1,7 @@
 import { MuestreoProductos } from "../MuestreoProductos/MuestreoProductos";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { obtenerTodosCasteada, obtenerWhereCasteada } from "../../../firebase";
+import { obtenerTodosCasteada, obtenerWhereCasteada } from "../../../utilities/firebase";
 import { Spinner } from "../Spinner/Spinner";
 
 export function PedidoProductos({ categoria: propCategoria }) {
@@ -25,7 +25,6 @@ export function PedidoProductos({ categoria: propCategoria }) {
 		} else {
 			obtenerWhereCasteada("productos", "category", categoria)
 			.then(r => {
-				console.log("ACA");
 				setProductos(r);
 				setCategoriaActual(categoria);
 				setLoading(false);

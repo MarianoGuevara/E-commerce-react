@@ -2,8 +2,8 @@ import './NavBar.css';
 import { CartWidget } from "../../atomicos/CartWidget/CartWidget";
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { obtenerKeyCasteada } from '../../../firebase';
-import { AlertaBasica } from '../../../Alert';
+import { obtenerKeyCasteada } from '../../../utilities/firebase';
+import { AlertaBasica } from '../../../utilities/Alert';
 
 export function NavBar() {
 	const [categorias, setCategorias] = useState([]);
@@ -54,7 +54,9 @@ export function NavBar() {
 					</form>
 
 					{/* / -> le dice al navegador "busca desde el root del proyecto" */}
-					<CartWidget srcImg="/carro.png"></CartWidget>
+					<CartWidget srcImg="/carro.png" toGo="/carrito" carro={true}></CartWidget>
+
+					<CartWidget srcImg="/login.png" toGo="/login" carro={false}></CartWidget>
 				</div>
 			</nav>
 	)

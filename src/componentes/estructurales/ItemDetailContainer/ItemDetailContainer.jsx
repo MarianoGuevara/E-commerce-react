@@ -1,19 +1,24 @@
 import "./ItemDetailContainer.css";
-import { NavLink, useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { ContextoCart } from "../../../providers/CartProvider";
 import { useContext } from 'react'
-import { obtenerWhereCasteada } from "../../../firebase";
+import { obtenerWhereCasteada } from "../../../utilities/firebase";
 import { Spinner } from "../../atomicos/Spinner/Spinner";
-import { AlertaBasica } from "../../../Alert";
+import { AlertaBasica } from "../../../utilities/Alert";
+import { ItemCount } from "../../atomicos/ItemCount/ItemCount";
 
 export function ItemDetailContainer() {
 	let param = useParams();
+
 	const [producto, setProducto] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [cantidad, setCantidad] = useState(1);
+
 	const contextoCarro = useContext(ContextoCart);
+	
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		setLoading(true);
 		obtenerWhereCasteada("productos", "id", parseInt(param["any"]))
@@ -35,18 +40,6 @@ export function ItemDetailContainer() {
 		}
 	}
 
-	function mas() {
-		setCantidad(cantidad + 1);
-		console.log("MAS: ", cantidad);
-	}
-
-	function menos() {
-		const cant = cantidad - 1;
-		if (cant > 0) {
-			setCantidad(cant);
-		}
-	}
-
 	return (
 		<>
 			{loading ? <Spinner></Spinner> : null}
@@ -61,17 +54,11 @@ export function ItemDetailContainer() {
 							<h1 className="detalle-titulo">{producto.title}</h1>
 							<h2 className="detalle-precio">${producto.price}</h2>
 							<h5 className="detalle-descripcion">{producto.description}</h5>
-							
 						</div>
-
 						<div>
 							<h6 className="detalle-stock">Stock: {producto.stock}</h6>
 
-							<div className="d-flex flex-row gap-1 align-items-center cont">
-								<p className="txtCant">Cantidad: {cantidad}</p>
-								<img onClick={mas} className="masmenos" src="/mas.png"></img>
-								<img onClick={menos} className="masmenos" src="/menos.png"></img>
-							</div>
+							<ItemCount setCantidad={setCantidad} cantidad={cantidad}></ItemCount>
 							
 							<div className="d-flex gap-3">
 								<button onClick={AgregarAlCarrito} className="btn btn-outline-success">Agregar al carrito</button>

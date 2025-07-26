@@ -1,0 +1,19 @@
+.login-contenedor {
+	background-color: #e0e0e0;
+}
+
+.login-form {
+	width: 100%;
+	max-width: 400px;
+	background-color: #309a6c;
+}
+
+.linkRegis {
+	color: white;
+	margin-bottom: 1rem;
+}
+
+.linkRegis:hover {
+	text-decoration:underline;
+	cursor: pointer;
+}

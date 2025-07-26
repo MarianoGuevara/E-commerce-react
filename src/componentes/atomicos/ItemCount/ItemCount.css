@@ -1,0 +1,16 @@
+.masmenos {
+	width: 40px;
+}
+.masmenos:hover {
+	background-color: rgb(75, 196, 111);
+	cursor: pointer;
+}
+
+.cont {
+	margin-bottom: 2rem;
+}
+
+.txtCant {
+	margin: 0;
+	margin-right: .5rem;
+}
