@@ -21,7 +21,7 @@ export function CartProvider({children}) { // children será app
         cantidad: cantidad, // cantidad total de productos del carro
 		setCantidad: setCantidad,
 
-		// productosDelCarro -> [{},{}...] cada {} == {id: 1, producto: {id,price,etc}}
+		// productosDelCarro -> [{},{}...] cada {} == {cantidad: 10, producto: {id,price,etc}}
 		productosDelCarro : productosCarro,
 
 		add : AgregarCarrito,
@@ -70,8 +70,10 @@ export function CartProvider({children}) { // children será app
 	function EliminarDelCarrito(id) {
 		let indice = ObtenerUno(id);
 		let nuevoCarrito = JSON.parse(JSON.stringify(elValorDelCarrito.productosDelCarro)); 
+		setCantidad(cantidad - nuevoCarrito[indice].cantidad);
 		nuevoCarrito.splice(indice, 1);
 		setProductosCarro(nuevoCarrito);
+
 	}
 
 	function ObtenerUno(id) {

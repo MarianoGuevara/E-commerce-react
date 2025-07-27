@@ -20,7 +20,7 @@ export function ItemCarro({value}){
 			></ItemListContainer>
 
 			
-			<button className="btn btn-success" onClick={()=> {
+			<button className="btn btn-outline-success" onClick={()=> {
 				contextoCarro.add(value.producto, cantidadActual);
 			}}> ACTUALIZAR CANTIDAD</button>
 

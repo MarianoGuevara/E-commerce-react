@@ -12,12 +12,13 @@ export function AlertaBasica(titulo, texto, icono, btn){
 	})
 }
 
-export function AlertaSiNo(titulo, texto, icono, btnSi, btnNo){
+export function AlertaSiNo(titulo, texto, icono, btnSi, btnNo) {
 	return MySweetAlert.fire({
-	title: titulo,
-	text: texto,
-	icon: icono,
-	confirmButtonText: btnSi,
-	denyButtonText : btnNo
-	})
+		title: titulo,
+		text: texto,
+		icon: icono,
+		showDenyButton: true,
+		confirmButtonText: btnSi,
+		denyButtonText: btnNo
+	});
 }
