@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, getDocs, doc, setDoc, addDoc, query, where } from "firebase/firestore"; 
+import { collection, getDocs, updateDoc, addDoc, query, where } from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyCFgwpK0D6Ct6MIaJVwQJsBCn5cosNnBs4",
@@ -61,6 +61,24 @@ export async function obtenerWhereCasteada(coleccion, key, value) {
 	return castearFirebaseObj(queryEjecutada);
 }
 
+
+export async function updateDocumento(coleccion, key, value, objetoNuevosDatos) {
+
+	const condicion = where(key, "==", value);
+	const querySnapshot = await getSome(coleccion, condicion);
+	const referencia = querySnapshot[0].ref; // supone que hay solo 1 igualdad. ref es la referencia al dato fierbase. data() seria el objeto literal
+	try {
+		console.log(referencia);
+		await updateDoc(referencia, objetoNuevosDatos);
+		return true;
+	} catch (e) {
+		return false;
+	}
+}
+
+export async function write(coleccion, datoObjeto) {
+	await addDoc(collection(bd, coleccion), datoObjeto);
+}
 //#endregion
 
 

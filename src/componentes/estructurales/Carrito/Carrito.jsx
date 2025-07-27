@@ -2,15 +2,23 @@ import "./Carrito.css";
 import { ContextoCart } from "../../../providers/CartProvider";
 import { useContext, useState, useEffect  } from 'react'
 import { ItemCarro } from "../../atomicos/ItemCarro/ItemCarro";
-import { AlertaSiNo } from "../../../utilities/Alert";
+import { AlertaSiNo, AlertaBasica } from "../../../utilities/Alert";
+import { updateDocumento, write } from "../../../utilities/firebase";
+import { Spinner } from '../../atomicos/Spinner/Spinner'
+import { useNavigate } from "react-router-dom"
+import { ContextoAuth } from "../../../providers/AuthProvider";
 
 export function Carrito() {
 	const contextoCarro = useContext(ContextoCart);
+	const contextoAuth = useContext(ContextoAuth);
 
 	console.log(contextoCarro.productosDelCarro);
 	console.log(contextoCarro.cantidad);
 
 	const [total, setTotal] = useState(contextoCarro.getPrice());
+	const [loading, setLoading] = useState(false);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setTotal(contextoCarro.getPrice()); 
@@ -25,18 +33,41 @@ export function Carrito() {
 		return string;
 	}
 
-	function comprar() {
-		AlertaSiNo(`¿Desea completar la compra con total de $${total}?`, listadoStringResumen(), "info", "si", "no")
-		.then((r)=> {
-			if (r.isConfirmed) {
-				// HACER COMPRA, SACAR STOCKS DE FIREBASE ETC
+	async function comprar() {
+		const r = await AlertaSiNo(`¿Desea completar la compra con total de $${total}?`, listadoStringResumen(), "info", "si", "no")
+		
+		if (r.isConfirmed) {
+			try {
+				setLoading(true);
+
+				let itemActual = undefined;
+				for (let i=0; i<contextoCarro.productosDelCarro.length; i++) {
+					itemActual = contextoCarro.productosDelCarro[i];
+					await updateDocumento("productos", "id", itemActual.producto.id, {stock : (itemActual.producto.stock-itemActual.cantidad)})
+				}
+				
+				AlertaBasica("LISTO!", "La compra fue realizada correctamente", "success", "ok");
+
+				await write("ventas", {
+					user: contextoAuth.usuarioActual.email,
+					carrito : contextoCarro.productosDelCarro,
+					total : total
+				});
+
+				contextoCarro.empty();
+				navigate("/");
+
+			} catch (e) {
+				AlertaBasica("ERROR", "Algo salió mal en la compra, no se pudo realizar: "+e.message , "error", "ok");
 			}
-		})
-		.catch((e)=> {console.log(e.message);})
+			finally {setLoading(false); }
+		}
 	}
 
 	return (
 		<>
+			{loading ? <Spinner></Spinner> : null}
+
 			{ // otro ternario para mostrar
 				contextoCarro.productosDelCarro.length == 0 ? 
 					<div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>

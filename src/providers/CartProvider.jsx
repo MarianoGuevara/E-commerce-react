@@ -34,6 +34,8 @@ export function CartProvider({children}) { // children será app
 
 	//#region logica
 
+
+
 	function VaciarCarrito() {
 		localStorage.removeItem("carrito-productos");
 		localStorage.removeItem("carrito-cantidad");

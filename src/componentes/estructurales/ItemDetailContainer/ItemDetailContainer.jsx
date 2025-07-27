@@ -68,20 +68,23 @@ export function ItemDetailContainer() {
 							<h2 className="detalle-precio">${producto.price}</h2>
 							<h5 className="detalle-descripcion">{producto.description}</h5>
 						</div>
-						<div>							
-							<h6 className="detalle-stock">
-								{producto.stock > 0 ? `Stock: ${producto.stock}` : "NO HAY STOCK"}
-							</h6>
+						{producto.stock > 0 ? (
+							<div>							
+								<h6 className="detalle-stock">
+									Stock: {producto.stock}
+								</h6>
 
-							<ItemCount setCantidad={setCantidad} cantidad={cantidad} limiteSuperior={producto.stock}></ItemCount>
-							
-							<br></br>
+								<ItemCount setCantidad={setCantidad} cantidad={cantidad} limiteSuperior={producto.stock}></ItemCount>
+								
+								<br></br>
 
-							<div className="d-flex gap-3">
-								<button onClick={AgregarAlCarrito} className="btn btn-outline-success">Agregar al carrito</button>
-								<button onClick={Comprar} className="btn btn-success">Comprar</button>
+								<div className="d-flex gap-3">
+									<button onClick={AgregarAlCarrito} className="btn btn-outline-success">Agregar al carrito</button>
+									<button onClick={Comprar} className="btn btn-success">Comprar</button>
+								</div>
 							</div>
-						</div>
+						) : "NO HAY STOCK"}
+						
 					</div>
 				</div>
 			</div>
