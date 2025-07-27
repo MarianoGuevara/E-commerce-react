@@ -11,21 +11,26 @@ import { AlertaBasica } from "../../../utilities/Alert";
 export function ItemDetailContainer() {
 	let param = useParams();
 	
-	const [producto, setProducto] = useState({});
-	const [cantidad, setCantidad] = useState(1);
-
 	const contextoCarro = useContext(ContextoCart);
 	const contextoAuth = useContext(ContextoAuth);
+
+	const [producto, setProducto] = useState({});
+	const [cantidad, setCantidad] = useState(1);
 	
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		contextoAuth.setLoading(true);
+		
 		obtenerWhereCasteada("productos", "id", parseInt(param["any"]))
 		.then(data => {
+			const indice = contextoCarro.getOne(data[0].id);
+			const cantidadReal = indice != null ? contextoCarro.productosDelCarro[indice].cantidad : 1;
+
+			setCantidad(cantidadReal);
 			setProducto(data[0]);
-			contextoAuth.setLoading(false);
-		});
+		})
+		.finally(() => {contextoAuth.setLoading(false);})
 	}, []);
 
 	function AgregarAlCarrito() {
@@ -34,8 +39,6 @@ export function ItemDetailContainer() {
 			if (cantidad > producto.stock) {
 				AlertaBasica("Supera el stock disponible!", "La cantidad actual que desea encargar del producto excede el stock", "warning", "ok")
 			} else {
-				// QUITAR STOCK DE LA BBDD
-				
 				contextoCarro.add(producto, cantidad);
 				navigate("/");
 			}
@@ -65,11 +68,15 @@ export function ItemDetailContainer() {
 							<h2 className="detalle-precio">${producto.price}</h2>
 							<h5 className="detalle-descripcion">{producto.description}</h5>
 						</div>
-						<div>
-							<h6 className="detalle-stock">Stock: {producto.stock}</h6>
+						<div>							
+							<h6 className="detalle-stock">
+								{producto.stock > 0 ? `Stock: ${producto.stock}` : "NO HAY STOCK"}
+							</h6>
 
-							<ItemCount setCantidad={setCantidad} cantidad={cantidad}></ItemCount>
+							<ItemCount setCantidad={setCantidad} cantidad={cantidad} limiteSuperior={producto.stock}></ItemCount>
 							
+							<br></br>
+
 							<div className="d-flex gap-3">
 								<button onClick={AgregarAlCarrito} className="btn btn-outline-success">Agregar al carrito</button>
 								<button onClick={Comprar} className="btn btn-success">Comprar</button>
@@ -79,6 +86,5 @@ export function ItemDetailContainer() {
 				</div>
 			</div>
 		</>
-		
 	);
 }

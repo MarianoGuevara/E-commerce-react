@@ -1,9 +1,12 @@
 import "./ItemCount.css";
 
-export function ItemCount({setCantidad, cantidad}) {
+export function ItemCount({setCantidad, cantidad, limiteSuperior}) {
 
 	function mas() {
-		setCantidad(cantidad + 1);
+		const cant = cantidad + 1;
+		if (cant <= limiteSuperior) {
+			setCantidad(cant);
+		}
 	}
 
 	function menos() {

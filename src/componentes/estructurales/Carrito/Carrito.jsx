@@ -1,27 +1,30 @@
 import "./Carrito.css";
 import { ContextoCart } from "../../../providers/CartProvider";
-import { useContext } from 'react'
+import { useContext, useState, useEffect  } from 'react'
+import { ItemListContainer } from "../../atomicos/ItemListContainer/ItemListContainer";
+import { ItemCount } from "../../atomicos/ItemCount/ItemCount";
+import { AlertaSiNo } from "../../../utilities/Alert";
+import { ItemCarro } from "../../atomicos/ItemCarro/ItemCarro";
 
-export function Carrito({}) {
+export function Carrito() {
 	const contextoCarro = useContext(ContextoCart);
-	const copiaCarrito = JSON.parse(JSON.stringify(contextoCarro.productosDelCarro));
-	console.log(copiaCarrito);
-	
+
+	const [total, setTotal] = useState(contextoCarro.getPrice());
+
+	useEffect(() => {
+		setTotal(contextoCarro.getPrice()); 
+	}, [contextoCarro.productosDelCarro])
+
 	return (
 		<>
 		{
-			copiaCarrito.map((value,i)=>{
+			contextoCarro.productosDelCarro.map((value,i)=>{
 				return (
-					<div key={i}>
-						<p>{value.id}</p>
-						<p>{value.cantidad}</p>
-						<p>{value.precio}</p>
-						<p>--------------------------------------------------</p>
-					</div>
+					<ItemCarro key={i} value={value}></ItemCarro>
 				)
 			})
 		}
+		<p>{total}</p>
 		</>
-		
 	);
 }

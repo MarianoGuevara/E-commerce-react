@@ -6,12 +6,17 @@ import { obtenerKeyCasteada } from '../../../utilities/firebase';
 import { AlertaBasica } from '../../../utilities/Alert';
 import { Spinner } from "../../atomicos/Spinner/Spinner";
 import { ContextoAuth } from "../../../providers/AuthProvider"
+import { ContextoCart } from '../../../providers/CartProvider';
 import { useContext } from 'react';
+import { useNavigate } from "react-router-dom"
 
 export function NavBar() {
 	const [categorias, setCategorias] = useState([]);
 
 	const contextoAuth = useContext(ContextoAuth);
+	const contextoCarro = useContext(ContextoCart);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		obtenerKeyCasteada("productos", "category")
@@ -25,8 +30,10 @@ export function NavBar() {
 		AlertaBasica("Operación no desarrollada!","La barra de busqueda aún no es funcional, disculpa las molestias","warning","ok");
 	}
 
-	async function close() {
-		await contextoAuth.cerrarSesion();
+	function close() {
+		contextoCarro.empty();
+		contextoAuth.cerrarSesion();
+		navigate("/");
 	}
 	return (
 			<>

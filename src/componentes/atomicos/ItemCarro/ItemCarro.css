@@ -1,0 +1,11 @@
+.contenedor {
+	background-color: rgb(205, 205, 205);
+}
+
+.imgTrash {
+	width: 50px;
+}
+
+.imgTrash:hover {
+	cursor: pointer;
+}

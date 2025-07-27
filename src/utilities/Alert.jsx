@@ -11,3 +11,13 @@ export function AlertaBasica(titulo, texto, icono, btn){
 	confirmButtonText: btn
 	})
 }
+
+export function AlertaSiNo(titulo, texto, icono, btnSi, btnNo){
+	return MySweetAlert.fire({
+	title: titulo,
+	text: texto,
+	icon: icono,
+	confirmButtonText: btnSi,
+	denyButtonText : btnNo
+	})
+}
