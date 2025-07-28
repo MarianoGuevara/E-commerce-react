@@ -1,0 +1,29 @@
+.listaproductos {
+	overflow: auto;
+	padding: 0;
+	margin: 0;
+}
+
+.compra {
+	background-color: rgb(228, 228, 228);
+	margin: 1.5rem;
+}
+
+.titulo {
+	padding: .5rem;
+}
+
+.objeto{
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 10px;
+	width: 180px;
+	text-align: center;
+	margin: .5rem;
+}
+
+.cantidad{
+	margin-bottom: 0;
+	margin-top: .5rem;
+	font-size: 13px;
+}	

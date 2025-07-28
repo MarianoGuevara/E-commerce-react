@@ -3,10 +3,11 @@ import { ContextoCart } from "../../../providers/CartProvider";
 import { useContext, useState, useEffect  } from 'react'
 import { ItemCarro } from "../../atomicos/ItemCarro/ItemCarro";
 import { AlertaSiNo, AlertaBasica } from "../../../utilities/Alert";
-import { updateDocumento, write } from "../../../utilities/firebase";
+import { updateDocumento, write } from "../../../utilities/basedatos";
 import { Spinner } from '../../atomicos/Spinner/Spinner'
 import { useNavigate } from "react-router-dom"
 import { ContextoAuth } from "../../../providers/AuthProvider";
+ import { Timestamp } from "firebase/firestore";
 
 export function Carrito() {
 	const contextoCarro = useContext(ContextoCart);
@@ -51,7 +52,8 @@ export function Carrito() {
 				await write("ventas", {
 					user: contextoAuth.usuarioActual.email,
 					carrito : contextoCarro.productosDelCarro,
-					total : total
+					total : total,
+					fecha : Timestamp.now()
 				});
 
 				contextoCarro.empty();

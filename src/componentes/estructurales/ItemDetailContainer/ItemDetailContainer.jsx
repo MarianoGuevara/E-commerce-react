@@ -2,7 +2,7 @@ import "./ItemDetailContainer.css";
 import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect, useContext } from "react";
 import { ContextoCart } from "../../../providers/CartProvider";
-import { obtenerWhereCasteada } from "../../../utilities/firebase";
+import { obtenerWhereCasteada } from "../../../utilities/basedatos";
 import { Spinner } from "../../atomicos/Spinner/Spinner";
 import { ItemCount } from "../../atomicos/ItemCount/ItemCount";
 import { ContextoAuth } from "../../../providers/AuthProvider";
@@ -25,7 +25,7 @@ export function ItemDetailContainer() {
 		obtenerWhereCasteada("productos", "id", parseInt(param["any"]))
 		.then(data => {
 			const indice = contextoCarro.getOne(data[0].id);
-			const cantidadReal = indice != null ? contextoCarro.productosDelCarro[indice].cantidad : 1;
+			const cantidadReal = indice != null ? contextoCarro.productosDelCarro[indice].cantidad : 1; // ternario
 
 			setCantidad(cantidadReal);
 			setProducto(data[0]);
@@ -43,7 +43,6 @@ export function ItemDetailContainer() {
 				navigate("/");
 			}
 		}
-		
 	}
 
 	function Comprar() {

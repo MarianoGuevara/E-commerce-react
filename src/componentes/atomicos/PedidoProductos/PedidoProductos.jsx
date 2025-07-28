@@ -1,10 +1,10 @@
 import { MuestreoProductos } from "../MuestreoProductos/MuestreoProductos";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { obtenerTodosCasteada, obtenerWhereCasteada } from "../../../utilities/firebase";
+import { obtenerTodosCasteada, obtenerWhereCasteada } from "../../../utilities/basedatos";
 import { Spinner } from "../Spinner/Spinner";
 
-export function PedidoProductos({ categoria: propCategoria }) {
+export function PedidoProductos({ propCategoria }) {
 	const paramCategoria  = useParams(); 
 	const categoria = propCategoria || paramCategoria["any"]; // categoria tendra valor segun cual de las 2 tenga valor
 
@@ -26,7 +26,7 @@ export function PedidoProductos({ categoria: propCategoria }) {
 			})
 		}
 		
-	}, [categoria]); // array de dependencia. Solo se ejecuta si cambia algun item del array
+	}, [categoria]); // array de dependencia. Solo se ejecuta si cambia categoria
 
 	function setteo(r,categoria,bool) {
 		setProductos(r);

@@ -2,7 +2,7 @@ import './NavBar.css';
 import { CartWidget } from "../../atomicos/CartWidget/CartWidget";
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { obtenerKeyCasteada } from '../../../utilities/firebase';
+import { obtenerKeyCasteada } from '../../../utilities/basedatos';
 import { AlertaBasica } from '../../../utilities/Alert';
 import { Spinner } from "../../atomicos/Spinner/Spinner";
 import { ContextoAuth } from "../../../providers/AuthProvider"
@@ -73,7 +73,12 @@ export function NavBar() {
 						{/* / -> le dice al navegador "busca desde el root del proyecto" */}
 						<CartWidget className="carr" srcImg="/carro.png" toGo="/carrito" carro={true}></CartWidget>
 						
-						{contextoAuth.usuarioActual!=null ?  <p onClick={close} className='nav-link x'>{contextoAuth.usuarioActual.email} (cerrar sesion)</p> : <CartWidget srcImg="/login.png" toGo="/login" carro={false}></CartWidget>}
+						{contextoAuth.usuarioActual!=null ?  (
+							<div className='d-flex flex-row gap-2'> 
+								<p onClick={close} className='nav-link x'>{contextoAuth.usuarioActual.email} (cerrar sesion)</p>
+								<NavLink to="/miscompras"><p className='nav-link x'>Mis compras</p></NavLink> 
+							</div>
+							) : <CartWidget srcImg="/login.png" toGo="/login" carro={false}></CartWidget>}
 						
 					</div>
 				</nav>

@@ -7,6 +7,7 @@ import { ItemDetailContainer } from './componentes/estructurales/ItemDetailConta
 import { PedidoProductos } from './componentes/atomicos/PedidoProductos/PedidoProductos'
 import { Carrito } from './componentes/estructurales/Carrito/Carrito'
 import { FormSesion } from './componentes/estructurales/FormSesion/FormSesion'
+import { Compras } from './componentes/estructurales/Compras/Compras'
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 					<Route path='/carrito'  element={<Carrito></Carrito>}></Route>
 					<Route path='/login'  element={<FormSesion accion="login"></FormSesion>}></Route>
 					<Route path='/registro'  element={<FormSesion accion="registro"></FormSesion>}></Route>
+					<Route path='/miscompras'  element={<Compras></Compras>}></Route>
 					
 					<Route path='*'  element={<p>Error 404</p>}></Route>
 					
