@@ -78,8 +78,8 @@ export function ItemDetailContainer() {
 								<br></br>
 
 								<div className="d-flex gap-3">
-									<button onClick={AgregarAlCarrito} className="btn btn-outline-success">Agregar al carrito</button>
-									<button onClick={Comprar} className="btn btn-success">Comprar</button>
+									<button onClick={AgregarAlCarrito} className="btn btn-success">Agregar al carrito</button>
+									{/* <button onClick={Comprar} className="btn btn-success">Comprar</button> */}
 								</div>
 							</div>
 						) : "NO HAY STOCK"}

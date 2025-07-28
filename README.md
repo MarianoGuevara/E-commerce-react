@@ -1,7 +1,7 @@
 # E-commerce hecha con react vite: BuyAny
 
 ## Link deploy: 
-x
+https://buyany.vercel.app/
 
 ## Funcionalidades y pantallas
 
